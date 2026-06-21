@@ -1,39 +1,10 @@
-import { useState, useEffect } from 'react'
 import Nav from '../../components/Nav'
 import Shoes from '../../assets/air-jordan.png';
-import { useDispatch, useSelector } from 'react-redux';
-// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import {store} from '../../store/store.ts'
-import { incrementCounter } from '../../slice/slice.ts';
-import { addProduct } from '../../slice/productslice.ts';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-const Home = () => {
-  const [text, setText] = useState('');
-  const [submittedText, setSubmitted] = useState('')
 
-  const dispatch = useDispatch()
+const Home: React.FC = () => {
 
-  const res = store.getState().counter.count;
-  // const pro = store.getState().product.productDefault;
-  // console.log(pro)
-
-  function handleIncrement(){
-    dispatch(incrementCounter(1))
-  }
-
-  function handleReset(){
-
-  }
-
-  function handleDecrement(){
-
-  }
-
-  function handleClick(){
-    console.log(dispatch(addProduct(text)));
-    setSubmitted(text)
-
-  }
 
   return (
     <div>
@@ -45,7 +16,7 @@ const Home = () => {
             <div className='mt-7 text-white'>
               <h3 className="text-md">New collection</h3>
               <h2 className="text-xl font-semibold mt-1">Nike Air Jordan</h2>
-              <button className="border-3 border-[#CBB8E6] bg-[#BFB8E3] text-white font-medium px-5 py-2 mt-3 rounded-full">Shop Now</button>
+              <button className="border-3 border-gray-300 bg-[#BFB8E3] text-white font-medium px-5 py-2 mt-3 rounded-full">Shop Now</button>
             </div>
             <div>
               <img className="w-40 mt-4" src={Shoes} alt="nike shoes" />
@@ -56,24 +27,16 @@ const Home = () => {
 
       <div className="mt-4 ml-3">
         <h2 className="text-xl font-semibold">Category</h2>
-        <h1>{res}</h1>
-        <button onClick={handleIncrement}>increment</button>
-        <button onClick={handleReset}>reset</button>
-        <button onClick={handleDecrement}>decrement</button>
         <div>
-          <input onChange={(e: React.SyntheticEvent ) => setText(e.target.value)} value={text} type="text" className='border-2' />
-          <button onClick={handleClick}>submit</button>
-          <ul>
-            <li>{submittedText}</li>
-          </ul>
-          {/* <Tabs defaultValue="account" className="w-[400px]">
+
+          <Tabs defaultValue="account" className="w-[400px]">
             <TabsList>
               <TabsTrigger value="account">Account</TabsTrigger>
               <TabsTrigger value="password">Password</TabsTrigger>
             </TabsList>
             <TabsContent value="account">Make changes to your account here.</TabsContent>
             <TabsContent value="password">Change your password here.</TabsContent>
-          </Tabs> */}
+          </Tabs>
         </div>
       </div>
 
