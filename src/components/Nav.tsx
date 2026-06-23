@@ -18,10 +18,10 @@ const Nav = () => {
 
        <div className="flex items-center gap-5">
        <div className="text-2xl"><IoSearchOutline /></div>
-       <div className="relative">
+       <Link to="/cart" className="relative">
         <div className="text-2xl"><BsCart4 /></div>
         <h3 className="absolute -top-1 -right-0.5 text-[12px] bg-red-500 px-1.25 py-[.4px] rounded-full font-semibold text-white">0</h3>
-       </div>
+       </Link>
        </div>
     </nav>
   )

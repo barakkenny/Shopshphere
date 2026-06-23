@@ -1,9 +1,23 @@
+import { useState } from 'react';
 import Nav from '../../components/Nav'
 import Shoes from '../../assets/air-jordan.png';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
+type ProductCategory = {
+  id: number;
+  category: string;
+}
+// px-6 py-2 rounded-full bg-linear-to-r from-[#95BBE7] via-[#B89EDB] to-[#CF8CD7]"
 
 const Home: React.FC = () => {
+  const [bg] = useState("px-6 py-2 rounded-full bg-linear-to-r from-[#95BBE7] via-[#B89EDB] to-[#CF8CD7]")
+
+  const productCategory: ProductCategory[] = [
+    {id: 1, category: 'All'},
+    {id: 2, category: 'Electronics'},
+    {id: 3, category: 'fashion'},
+    {id: 4, category: 'shoes'}
+  ]
 
 
   return (
@@ -27,16 +41,21 @@ const Home: React.FC = () => {
 
       <div className="mt-4 ml-3">
         <h2 className="text-xl font-semibold">Category</h2>
-        <div>
+        <div className="mt-4 flex items-center gap-6">
 
-          <Tabs defaultValue="account" className="w-[400px]">
-            <TabsList>
-              <TabsTrigger value="account">Account</TabsTrigger>
-              <TabsTrigger value="password">Password</TabsTrigger>
+          {/* <Tabs defaultValue="All" className="w-[400px]">
+            <TabsList className="flex items-center justify-between bg-none space-x-4">
+              <TabsTrigger value="All" className="text-white px-7 py-4 rounded-full bg-linear-to-r from-[#95BBE7] via-[#B89EDB] to-[#CF8CD7]">All</TabsTrigger>
+              <TabsTrigger value="">Password</TabsTrigger>
             </TabsList>
-            <TabsContent value="account">Make changes to your account here.</TabsContent>
-            <TabsContent value="password">Change your password here.</TabsContent>
-          </Tabs>
+            className="px-6 py-2 rounded-full bg-linear-to-r from-[#95BBE7] via-[#B89EDB] to-[#CF8CD7]"
+          </Tabs> */}
+        {productCategory.map(({id, category}) => (
+          <ul key={id}>
+            <li  className={`${category === 'All'? `${bg} text-white shadow-none`: 'text-black px-6 py-2 rounded-full shadow-[0_0_8px_rgba(0,0,0,0.25)]'} px-6 py-2 rounded-full shadow-[0_0_8px_rgba(0,0,0,0.25)] cursor-pointer`}>{category}</li>
+          </ul>
+        ))}
+        {/* className={`${category === 'All'? `${bg} text-white shadow-none`: 'text-black px-6 py-2 rounded-full shadow-[0_0_8px_rgba(0,0,0,0.25)]'} px-6 py-2 rounded-full shadow-[0_0_8px_rgba(0,0,0,0.25)] cursor-pointer`} */}
         </div>
       </div>
 

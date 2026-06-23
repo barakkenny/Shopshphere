@@ -1,6 +1,7 @@
 import { createBrowserRouter, type RouteObject } from 'react-router-dom';
 import App from '../App';
 import ProductDetails from '../pages/productDetails/ProductDetails'
+import Cart from '@/pages/cart/Cart';
 
 const routes :RouteObject[] = [
   {
@@ -10,6 +11,10 @@ const routes :RouteObject[] = [
   {
     path: "/product-details",
     element: <ProductDetails />
+  },
+  {
+    path: "/cart",
+    element: <Cart />
   }
 ]
 
