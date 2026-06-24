@@ -3,7 +3,7 @@ import Nav from '@/components/Nav'
 const Cart = () => {
   return (
     <div>
-        <Nav />
+    <Nav />
       Cart Page
     </div>
   )
