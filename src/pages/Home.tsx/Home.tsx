@@ -5,8 +5,9 @@ import useFetchData from '@/custom-hooks/useFetchData';
 // import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {type FetchedData } from '../../types/types'
 import { Link } from 'react-router-dom';
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
+import Skeleton from '../../components/Skeleton'
+// import Skeleton from 'react-loading-skeleton'
+// import 'react-loading-skeleton/dist/skeleton.css'
 
 type ProductCategory = {
   id: number;
@@ -17,8 +18,11 @@ type ProductCategory = {
 const Home: React.FC = () => {
   const [categoryBg, setCategoryBg] = useState("px-6 py-2 rounded-full bg-linear-to-r from-[#95BBE7] via-[#B89EDB] to-[#CF8CD7]")
 
-  const handleCategoryClick = () => {
-
+  const handleCategoryClick = (category: string) => {
+    if(category === 'Electronics'){
+      console.log('hello')
+      setCategoryBg("bg-linear-to-r from-[#95BBE7] via-[#B89EDB] to-[#CF8CD7]")
+    }
   }
 
   const productCategory: ProductCategory[] = [
@@ -30,9 +34,9 @@ const Home: React.FC = () => {
 
   const {data:products, isLoading, error, isError } = useFetchData();
   
-  if (isLoading) return <p>Loading...</p>;
+  // if (isLoading) return <p>Loading...</p>;
 
-  if (isError) return <p>{error.message}</p>;
+  // if (isError) return <p>{error.message}</p>;
 
   return (
     <div>
@@ -54,7 +58,7 @@ const Home: React.FC = () => {
       </div>
 
       <div className="mt-4 ml-3">
-        <h2 className="text-xl font-semibold">Category</h2>
+        <h2 className="text-xl font-semibold xs:text-red-500">Category</h2>
         <div className="mt-4 flex items-center gap-6">
 
           {/* <Tabs defaultValue="All" className="w-[400px]">
@@ -66,17 +70,22 @@ const Home: React.FC = () => {
           </Tabs> */}
         {productCategory.map(({id, category}) => (
           <ul key={id}>
-            <li onClick={() => handleCategoryClick()} className={`${category === 'All'? `${categoryBg} text-white shadow-none`: 'text-black px-6 py-2 rounded-full shadow-[0_0_8px_rgba(0,0,0,0.25)]'} px-6 py-2 rounded-full shadow-[0_0_8px_rgba(0,0,0,0.25)] cursor-pointer`}>{category}</li>
+            <li onClick={() => handleCategoryClick(category)} className={`${category === 'All'? `${categoryBg} text-white shadow-none`: 'text-black px-6 py-2 rounded-full shadow-[0_0_8px_rgba(0,0,0,0.25)]'} px-6 py-2 rounded-full shadow-[0_0_8px_rgba(0,0,0,0.25)] cursor-pointer`}>{category}</li>
           </ul>
         ))}
         {/* className={`${category === 'All'? `${bg} text-white shadow-none`: 'text-black px-6 py-2 rounded-full shadow-[0_0_8px_rgba(0,0,0,0.25)]'} px-6 py-2 rounded-full shadow-[0_0_8px_rgba(0,0,0,0.25)] cursor-pointer`} */}
         </div>
 
-        <div className="flex items-center gap-8 flex-wrap">
+        {isLoading ? (
+          <div className="mt-8">
+            <Skeleton />
+            </div>
+         ) : (
+          <div className="flex items-center gap-8 flex-wrap">
           {products.map(({id, title, image, price}: FetchedData) => (
-            <Link to="/product-details">
-            <div key={id} className="mt-9 px-2 py-2 shadow-[0_0_8px_rgba(0,0,0,0.25)] rounded-md">
-              <img className="w-25 rounded" src={image || <Skeleton />} alt="" />
+            <Link to={`/product-details/${id}`} key={id}>
+            <div className="mt-9 px-2 py-2 shadow-[0_0_8px_rgba(0,0,0,0.25)] rounded-md">
+            <img className="w-25 rounded" src={image} alt="" />
               <h3 className='mt-2'>{title.length > 15
                   ? `${title.slice(0, 15)}...`
                    : title}</h3>
@@ -86,7 +95,8 @@ const Home: React.FC = () => {
             </Link>
           ))}
         </div>
-
+         )}
+         
       </div>
 
     </div>

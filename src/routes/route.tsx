@@ -9,7 +9,7 @@ const routes :RouteObject[] = [
     element: <App />
   },
   {
-    path: "/product-details",
+    path: "/product-details/:id",
     element: <ProductDetails />
   },
   {
